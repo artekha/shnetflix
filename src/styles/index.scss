@@ -1,0 +1,14 @@
+// External Libraries
+@import '~bootstrap/dist/css/bootstrap.min.css';
+
+// General imports
+@import './fonts.scss';
+@import './variables.scss';
+@import './reset.scss';
+@import './base.scss';
+@import './typography.scss';
+@import './ui-kit.scss';
+
+// Components
+@import '../components/App/App.scss';
+@import '../components/SearchField/SearchField.scss';

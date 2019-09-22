@@ -1,0 +1,14 @@
+input.form-control {
+  border-radius: 6px;
+  background-color: $lightGrey;
+  border: 1px solid $lightGrey;
+  color: $white;
+  font-family: 'Rubik';
+  &:focus {
+    background-color: lighten($color: $grey, $amount: 5);
+    border-color: $white;
+    color: $white;
+    outline: none;
+    box-shadow: none;
+  }
+}
