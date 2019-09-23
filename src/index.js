@@ -1,6 +1,28 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './styles/index.scss';
-import App from './components/App';
+import { Provider } from 'react-redux';
+import { ConnectedRouter } from 'connected-react-router';
+import { createBrowserHistory } from 'history';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+import App from './components/App';
+import createStore from './store';
+
+import './styles/index.scss';
+
+const { PUBLIC_PATH } = process.env;
+
+const history = createBrowserHistory({ basename: PUBLIC_PATH });
+const store = createStore({ history });
+
+const render = Component => {
+  ReactDOM.render(
+    <Provider store={store}>
+      <ConnectedRouter history={history}>
+        <Component />
+      </ConnectedRouter>
+    </Provider>,
+    document.getElementById('root'),
+  );
+};
+
+render(App);

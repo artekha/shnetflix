@@ -1,8 +1,41 @@
 import React from 'react';
 import { Input } from 'reactstrap';
 
-const SearchField = () => (
-  <Input className="search-field" placeholder="Start typing..."></Input>
-);
+import { useDebounce } from '../../helpers/hooks';
+
+const SearchField = ({ searchRequest, setSearchRequest }) => {
+  const normalizeValue = value => value || '';
+  const [inputValue, setInputValue] = React.useState(
+    normalizeValue(searchRequest),
+  );
+
+  const debouncedSearchValue = useDebounce(inputValue, 500);
+
+  const handleChange = event => setInputValue(event.target.value.trim());
+
+  React.useEffect(() => setInputValue(normalizeValue(searchRequest)), [
+    searchRequest,
+  ]);
+
+  React.useEffect(() => setSearchRequest(debouncedSearchValue), [
+    debouncedSearchValue,
+  ]);
+
+  return (
+    <Input
+      onChange={handleChange}
+      value={inputValue}
+      className="search-field"
+      placeholder="Start typing..."
+    ></Input>
+  );
+};
 
 export default SearchField;
+
+// export default connect(
+//   null,
+//   {
+//     fetchMoviesMapped: fetchMovies,
+//   },
+// )(SearchField);
