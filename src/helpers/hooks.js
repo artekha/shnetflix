@@ -20,6 +20,7 @@ export const useDebounce = (value, delay) => {
 export const useFetch = (url, options = {}) => {
   const [response, setResponse] = React.useState(null);
   const [error, setError] = React.useState(null);
+  const [fetching, setFetching] = React.useState(null);
 
   let composedUrl = `${url}?apikey=${API_KEY}`;
 
@@ -28,6 +29,7 @@ export const useFetch = (url, options = {}) => {
   }
 
   const fetchData = async () => {
+    setFetching(true);
     try {
       const res = await fetch(composedUrl, options);
       const json = await res.json();
@@ -35,11 +37,12 @@ export const useFetch = (url, options = {}) => {
     } catch (error) {
       setError(error);
     }
+    setFetching(false);
   };
 
   React.useEffect(() => {
     fetchData();
   }, []);
 
-  return { serverResponse: response, serverError: error };
+  return { serverResponse: response, serverError: error, fetching };
 };

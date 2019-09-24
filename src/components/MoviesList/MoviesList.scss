@@ -1,4 +1,15 @@
-.search-field {
-  width: 500px;
-  margin: 0 auto;
+.movies-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 20px auto 0;
+  max-width: 1200px;
+}
+
+.movies-spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: 300px;
 }

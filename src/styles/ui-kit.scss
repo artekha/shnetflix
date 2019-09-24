@@ -12,3 +12,12 @@ input.form-control {
     box-shadow: none;
   }
 }
+
+.text-danger {
+  color: $red !important;
+}
+
+.spinner-border {
+  width: 60px;
+  height: 60px;
+}

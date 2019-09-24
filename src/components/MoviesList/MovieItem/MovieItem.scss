@@ -1,0 +1,36 @@
+@import '../../../styles/variables.scss';
+
+.movie-item {
+  background-color: transparent;
+  width: 200px;
+  margin: 10px;
+  cursor: pointer;
+  transform: scale(1);
+  transition: all 0.2s;
+  text-align: center;
+  border-radius: 6px;
+  overflow: hidden;
+
+  &__poster {
+    width: 100%;
+    height: 300px;
+    overflow: hidden;
+    & img {
+      width: 100%;
+      height: auto;
+    }
+  }
+  &__info {
+    padding: 10px;
+  }
+  &__title {
+    margin-bottom: 20px;
+  }
+
+  &:hover {
+    z-index: 10;
+    transform: scale(1.2);
+    background: $lightGrey;
+    box-shadow: 0 10px 20px 20px rgba(0, 0, 0, 0.3);
+  }
+}

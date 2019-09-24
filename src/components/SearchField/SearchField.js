@@ -3,6 +3,8 @@ import { Input } from 'reactstrap';
 
 import { useDebounce } from '../../helpers/hooks';
 
+import './SearchField.scss';
+
 const SearchField = ({ searchRequest, setSearchRequest }) => {
   const normalizeValue = value => value || '';
   const [inputValue, setInputValue] = React.useState(
@@ -11,7 +13,7 @@ const SearchField = ({ searchRequest, setSearchRequest }) => {
 
   const debouncedSearchValue = useDebounce(inputValue, 500);
 
-  const handleChange = event => setInputValue(event.target.value.trim());
+  const handleChange = event => setInputValue(event.target.value);
 
   React.useEffect(() => setInputValue(normalizeValue(searchRequest)), [
     searchRequest,

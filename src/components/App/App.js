@@ -1,14 +1,16 @@
 import React from 'react';
 import queryString from 'query-string';
-import { BrowserRouter as Router, Route, withRouter } from 'react-router-dom';
+import { Route, Switch, withRouter } from 'react-router-dom';
 
 import SearchField from '../SearchField';
-import SearchResult from '../SearchResult';
+import MoviesList from '../MoviesList';
+import DetailedMovie from '../DetailedMovie';
 
-const StateContext = React.createContext({});
+import './App.scss';
 
 const App = ({ history }) => {
   const [searchRequest, setSearchRequest] = React.useState(null);
+  const [detailedMovie, setDetailedMovie] = React.useState(null);
   React.useEffect(() => {
     const { pathname, search } = history.location;
     const parameters = queryString.parse(search);
@@ -28,18 +30,23 @@ const App = ({ history }) => {
   }, [searchRequest, history]);
 
   return (
-    <StateContext.Provider>
-      <Router>
-        <div className="app">
-          <h1 className="app__title">Shnetflix</h1>
-          <SearchField
+    <div className="app">
+      <h1 className="app__title">Shnetflix</h1>
+      <SearchField
+        searchRequest={searchRequest}
+        setSearchRequest={setSearchRequest}
+      ></SearchField>
+      <Route
+        path="/search"
+        component={() => (
+          <MoviesList
             searchRequest={searchRequest}
-            setSearchRequest={setSearchRequest}
-          ></SearchField>
-          <Route path="/search" component={SearchResult} />
-        </div>
-      </Router>
-    </StateContext.Provider>
+            setDetailedMovie={setDetailedMovie}
+          ></MoviesList>
+        )}
+      />
+      <DetailedMovie></DetailedMovie>
+    </div>
   );
 };
 export default withRouter(App);
