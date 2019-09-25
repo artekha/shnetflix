@@ -4,15 +4,20 @@ import PropTypes from 'prop-types';
 import { Spinner } from 'reactstrap';
 
 import MovieItem from './MovieItem';
-import { API_ENDPOINT } from '../../helpers/endpoints';
+import { composeUrl } from '../../helpers/utils';
 import { useFetch } from '../../helpers/hooks';
 
 import './MoviesList.scss';
 
 const MoviesList = ({ searchRequest, setDetailedMovie }) => {
-  const { serverResponse, serverError, fetching } = useFetch(API_ENDPOINT, {
-    s: searchRequest,
-  });
+  const { fetchData, data, error, fetching } = useFetch(
+    composeUrl({ s: searchRequest }),
+  );
+
+  React.useEffect(() => {
+    fetchData(composeUrl({ s: searchRequest }));
+  }, [searchRequest]);
+
   if (fetching) {
     return (
       <div className="movies-spinner">
@@ -20,21 +25,30 @@ const MoviesList = ({ searchRequest, setDetailedMovie }) => {
       </div>
     );
   }
-  if (serverResponse && serverResponse.Search) {
-    return (
-      <section className="movies-list">
-        {serverResponse.Search.map(movie => (
-          <MovieItem
-            key={movie.imdbID}
-            movie={movie}
-            onClick={() => setDetailedMovie(movie.imdbID)}
-          ></MovieItem>
-        ))}
-      </section>
-    );
-  } else {
-    return <p>LOL</p>;
+  if (data) {
+    if (data.Search) {
+      return (
+        <section className="movies-list">
+          {data.Search.map(movie => (
+            <MovieItem
+              key={movie.imdbID}
+              movie={movie}
+              setDetailedMovie={setDetailedMovie}
+            ></MovieItem>
+          ))}
+        </section>
+      );
+    }
+    if (data.Error) {
+      return <p>{data.Error}</p>;
+    }
   }
+  if (error) {
+    return (
+      <p>Seems like server is not available at the moment, try again later</p>
+    );
+  }
+  return <p>Try to type your request in the search field</p>;
 };
 
 MoviesList.propTypes = {

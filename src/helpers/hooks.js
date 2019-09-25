@@ -1,5 +1,4 @@
 import React from 'react';
-import { API_KEY } from './endpoints';
 
 export const useDebounce = (value, delay) => {
   const [debouncedValue, setDebouncedValue] = React.useState(value);
@@ -17,23 +16,18 @@ export const useDebounce = (value, delay) => {
   return debouncedValue;
 };
 
-export const useFetch = (url, options = {}) => {
-  const [response, setResponse] = React.useState(null);
+export const useFetch = url => {
+  const [data, setData] = React.useState(null);
   const [error, setError] = React.useState(null);
   const [fetching, setFetching] = React.useState(null);
-
-  let composedUrl = `${url}?apikey=${API_KEY}`;
-
-  for (let key in options) {
-    composedUrl += `&${key}=${options[key]}`;
-  }
+  const [fetchUrl, setFetchUrl] = React.useState(url);
 
   const fetchData = async () => {
     setFetching(true);
     try {
-      const res = await fetch(composedUrl, options);
+      const res = await fetch(fetchUrl);
       const json = await res.json();
-      setResponse(json);
+      setData(json);
     } catch (error) {
       setError(error);
     }
@@ -41,8 +35,13 @@ export const useFetch = (url, options = {}) => {
   };
 
   React.useEffect(() => {
-    fetchData();
-  }, []);
+    fetchData(fetchUrl);
+  }, [fetchUrl]);
 
-  return { serverResponse: response, serverError: error, fetching };
+  return {
+    fetchData: setFetchUrl,
+    data,
+    error,
+    fetching,
+  };
 };

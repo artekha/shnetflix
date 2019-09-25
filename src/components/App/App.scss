@@ -1,7 +1,16 @@
 @import '../../styles/variables.scss';
 .app {
   min-height: 100vh;
+  display: flex;
+  position: relative;
+}
+
+.app__main {
   padding: 20px;
+  flex: 1 1 100%;
+  &_sidebar-displayed {
+    padding-right: 520px;
+  }
 }
 
 .app__title {

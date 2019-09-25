@@ -1,11 +1,12 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
 import { Input } from 'reactstrap';
 
 import { useDebounce } from '../../helpers/hooks';
 
 import './SearchField.scss';
 
-const SearchField = ({ searchRequest, setSearchRequest }) => {
+const SearchField = ({ searchRequest, setSearchRequest, history }) => {
   const normalizeValue = value => value || '';
   const [inputValue, setInputValue] = React.useState(
     normalizeValue(searchRequest),
@@ -15,9 +16,9 @@ const SearchField = ({ searchRequest, setSearchRequest }) => {
 
   const handleChange = event => setInputValue(event.target.value);
 
-  React.useEffect(() => setInputValue(normalizeValue(searchRequest)), [
-    searchRequest,
-  ]);
+  React.useEffect(() => {
+    setInputValue(normalizeValue(searchRequest));
+  }, [searchRequest]);
 
   React.useEffect(() => setSearchRequest(debouncedSearchValue), [
     debouncedSearchValue,
@@ -33,11 +34,4 @@ const SearchField = ({ searchRequest, setSearchRequest }) => {
   );
 };
 
-export default SearchField;
-
-// export default connect(
-//   null,
-//   {
-//     fetchMoviesMapped: fetchMovies,
-//   },
-// )(SearchField);
+export default withRouter(SearchField);
