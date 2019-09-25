@@ -4,6 +4,10 @@
   justify-content: center;
   margin: 20px auto 0;
   max-width: 1200px;
+  &__error {
+    margin: 50px;
+    text-align: center;
+  }
 }
 
 .movies-spinner {

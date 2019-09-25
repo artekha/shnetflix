@@ -40,12 +40,14 @@ const MoviesList = ({ searchRequest, setDetailedMovie }) => {
       );
     }
     if (data.Error) {
-      return <p>{data.Error}</p>;
+      return <p className="movies-list__error">{data.Error}</p>;
     }
   }
   if (error) {
     return (
-      <p>Seems like server is not available at the moment, try again later</p>
+      <p className="movies-list__error">
+        Seems like server is not available at the moment, try again later
+      </p>
     );
   }
   return <p>Try to type your request in the search field</p>;

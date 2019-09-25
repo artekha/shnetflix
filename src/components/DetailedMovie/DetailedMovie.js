@@ -24,8 +24,11 @@ const DetailedMovie = ({ movieId, setDetailedMovie }) => {
           <Spinner color="danger" />
         </div>
       )}
-      {error && <p>Something went wrong</p>}
-      {data && (
+      {error && <p className="detailed-movie__error">Something went wrong</p>}
+      {data && data.Error && (
+        <p className="detailed-movie__error">{data.Error}</p>
+      )}
+      {data && !data.Error && (
         <React.Fragment>
           <div
             className="detailed-movie__close"
