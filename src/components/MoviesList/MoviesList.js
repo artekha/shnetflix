@@ -34,7 +34,7 @@ const MoviesList = ({ searchRequest, setDetailedMovie }) => {
               key={movie.imdbID}
               movie={movie}
               setDetailedMovie={setDetailedMovie}
-            ></MovieItem>
+            />
           ))}
         </section>
       );

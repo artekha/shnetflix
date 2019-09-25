@@ -16,7 +16,6 @@ const DetailedMovie = ({ movieId, setDetailedMovie }) => {
     fetchData(composeUrl({ i: movieId, plot: 'full' }));
   }, [movieId]);
 
-  console.log(data);
   return (
     <article className="detailed-movie">
       {fetching && (

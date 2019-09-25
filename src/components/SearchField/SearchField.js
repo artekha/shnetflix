@@ -30,7 +30,7 @@ const SearchField = ({ searchRequest, setSearchRequest, history }) => {
       value={inputValue}
       className="search-field"
       placeholder="Start typing..."
-    ></Input>
+    />
   );
 };
 

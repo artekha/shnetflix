@@ -6,13 +6,9 @@ import App from './components/App';
 
 import './styles/index.scss';
 
-const render = Component => {
-  ReactDOM.render(
-    <Router>
-      <Component></Component>
-    </Router>,
-    document.getElementById('root'),
-  );
-};
-
-render(App);
+ReactDOM.render(
+  <Router>
+    <App />
+  </Router>,
+  document.getElementById('root'),
+);

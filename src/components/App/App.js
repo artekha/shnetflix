@@ -69,12 +69,12 @@ const App = ({ history }) => {
         <SearchField
           searchRequest={searchRequest}
           setSearchRequest={setSearchRequest}
-        ></SearchField>
+        />
         {searchRequest && (
           <MoviesList
             searchRequest={searchRequest}
             setDetailedMovie={setDetailedMovie}
-          ></MoviesList>
+          />
         )}
       </div>
       {detailedMovie && (
@@ -82,7 +82,7 @@ const App = ({ history }) => {
           <DetailedMovie
             movieId={detailedMovie}
             setDetailedMovie={setDetailedMovie}
-          ></DetailedMovie>
+          />
         </div>
       )}
     </div>
