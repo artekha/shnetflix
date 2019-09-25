@@ -20,37 +20,33 @@ const MoviesList = ({ searchRequest, setDetailedMovie }) => {
 
   if (fetching) {
     return (
-      <div className="movies-spinner">
-        <Spinner color="danger" />
-      </div>
+      <section className="movies-list">
+        <div className="movies-spinner">
+          <Spinner color="danger" />
+        </div>
+      </section>
     );
-  }
-  if (data) {
-    if (data.Search) {
-      return (
-        <section className="movies-list">
-          {data.Search.map(movie => (
-            <MovieItem
-              key={movie.imdbID}
-              movie={movie}
-              setDetailedMovie={setDetailedMovie}
-            />
-          ))}
-        </section>
-      );
-    }
-    if (data.Error) {
-      return <p className="movies-list__error">{data.Error}</p>;
-    }
-  }
-  if (error) {
+  } else {
     return (
-      <p className="movies-list__error">
-        Seems like server is not available at the moment, try again later
-      </p>
+      <section className="movies-list">
+        {error && <p className="movies-list__error">Something went wrong</p>}
+        {data && data.Error && (
+          <p className="movies-list__error">{data.Error}</p>
+        )}
+        {data && data.Search && (
+          <section className="movies-list">
+            {data.Search.map(movie => (
+              <MovieItem
+                key={movie.imdbID}
+                movie={movie}
+                setDetailedMovie={setDetailedMovie}
+              />
+            ))}
+          </section>
+        )}
+      </section>
     );
   }
-  return <p>Try to type your request in the search field</p>;
 };
 
 MoviesList.propTypes = {
